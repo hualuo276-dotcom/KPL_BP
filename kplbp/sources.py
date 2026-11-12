@@ -319,10 +319,10 @@ def fetch_schedule(seasonid: str, max_pages: int = 12) -> list[dict]:
 def fetch_schedule_detail(schedule_id: str, seasonid: str) -> dict:
     """单场详情。
 
-    参数名必须是 scheduleid **并且带上 seasonid**：
+    参数名必须是 scheduleid，并且带上 seasonid：
       * scheduleid 不带 seasonid → {"result":10020003,"msg":"schedule not found"}
-      * 用 schedule_id / id / matchid 等名字 → 服务端直接忽略，返回「最近一场」的明细
-        （这个坑很隐蔽：内容看着有数据，但每场都一模一样）
+      * 用 schedule_id / id / matchid 等名字 → 服务端忽略参数，返回最近一场的明细
+        这种情况下响应有数据，但每场内容相同，不会报错
     """
     return kpl_json("getScheduleDetail", scheduleid=schedule_id, seasonid=seasonid)
 

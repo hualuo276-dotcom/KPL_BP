@@ -21,3 +21,6 @@ bans.csv
 *.swp
 .DS_Store
 Thumbs.db
+
+# 临时脚本（读凭证 / 一次性推送），不入库
+scripts/_*.py

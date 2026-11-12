@@ -1,20 +1,19 @@
 """BP 规则。
 
-**必须先从真实数据里核对，别照记忆写。** 下面这张 20 手表是从官方
-`prod.comp.smoba.qq.com/leaguesite/battle/open` 的 `bp_list` 逐手数出来的
-（`camp` 1=蓝 2=红，`is_ban_or_pick` 1=pick 0=ban）：
+这张 20 手表由官方 `prod.comp.smoba.qq.com/leaguesite/battle/open` 的 `bp_list`
+逐手统计得出（`camp` 1=蓝 2=红，`is_ban_or_pick` 1=pick 0=ban）：
 
     1 蓝 ban   2 红 ban   3 蓝 ban   4 红 ban
     5 蓝 pick  6 红 pick  7 红 pick  8 蓝 pick  9 蓝 pick  10 红 pick
     11 红 ban  12 蓝 ban  13 红 ban  14 蓝 ban  15 红 ban  16 蓝 ban
     17 红 pick 18 蓝 pick 19 蓝 pick 20 红 pick
 
-合计：蓝 5 ban / 5 pick，红 5 ban / 5 pick，**共 20 手**。
+合计：蓝 5 ban / 5 pick，红 5 ban / 5 pick，共 20 手。
 
-⚠ 之前按记忆写的 8 ban / 18 手（第二轮 ban 只有 4 个）是错的。
-`scripts/verify_rules.py` 会拿库里的 `bp_order` 去逐手比对，别再凭印象改。
+早期版本按 8 ban / 18 手写，与数据不符，已改。
+`scripts/verify_rules.py` 会用库里的 `bp_order` 逐手比对。
 
-老赛季（2020 前后）是 8 ban，所以这里留了两张表，用 `ban_slots` 切。
+老赛季（2020 前后）是 8 ban，所以保留两张表，用 `ban_slots` 切换。
 """
 from __future__ import annotations
 
@@ -73,9 +72,9 @@ KPL_BLIND: list[tuple[str, str]] = [("B", "pick")] * 5 + [("R", "pick")] * 5
 
 DEFAULT_CONFIG = {
     "ban_slots": 10,        # 每队 ban 数（现行 KPL = 5，老赛制 = 4）
-    # ⚠ 默认关。2025–2026 六个赛季实测：BO5 有 483/492 场出现「同一英雄跨局重复」，
-    # BO7 是 88/88。也就是说**现行 KPL 是每局独立 BP，不是全局 BP**。
-    # 世冠 / 挑战者杯 / 自定义赛事要开的话，客户端传 config.global_bp = true。
+    # 默认关闭。2025–2026 六个赛季统计：BO5 有 483/492 场出现同一英雄跨局重复，
+    # BO7 是 88/88，即现行 KPL 为每局独立 BP。
+    # 世冠、挑战者杯等赛事需要时传 config.global_bp = true。
     "global_bp": False,
     "lock_bans": False,     # 全局 BP 开启时，被 ban 的英雄是否也进池
     "blind_last": True,     # BO7 第七局走巅峰对决
