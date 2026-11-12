@@ -1,0 +1,10 @@
+# 统一换行，避免 Windows/Linux 混合协作时满屏 diff
+* text=auto eol=lf
+
+# Windows 批处理必须是 CRLF
+*.cmd text eol=crlf
+
+# 二进制
+*.db   binary
+*.png  binary
+*.jpg  binary

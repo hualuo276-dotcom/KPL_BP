@@ -1,0 +1,23 @@
+# 运行时产物
+__pycache__/
+*.py[cod]
+*.pyd
+
+# 会话存档（每次点开界面都会变，不进版本库）
+data/sessions/
+
+# SQLite 运行时辅助文件；data/kpl.db 本体是提交的，方便 clone 下来直接用
+data/*.db-wal
+data/*.db-shm
+
+# 抓取 / 调试时留下的临时文件
+.probe_*
+*.log
+bans.csv
+
+# 编辑器
+.vscode/
+.idea/
+*.swp
+.DS_Store
+Thumbs.db

@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>KPL BP 模拟器</title>
+<link rel="stylesheet" href="/style.css">
+</head>
+<body>
+<header class="topbar">
+  <div class="brand">
+    <span class="logo">KPL</span>
+    <span class="sub">BP 模拟器</span>
+    <span id="seasonTag" class="tag">—</span>
+  </div>
+  <div class="controls">
+    <label>赛季
+      <select id="seasonSel"></select>
+    </label>
+    <label>BO
+      <select id="boSel">
+        <option value="5">5</option>
+        <option value="7" selected>7</option>
+      </select>
+    </label>
+    <label class="chk" title="现行 KPL 是每局独立 BP，默认关闭">
+      <input type="checkbox" id="globalBp"> 全局BP
+    </label>
+    <label>蓝方
+      <select id="blueSel"></select>
+    </label>
+    <label>红方
+      <select id="redSel"></select>
+    </label>
+    <button id="btnNew" class="primary">新建比赛</button>
+    <button id="btnUndo">撤销</button>
+  </div>
+</header>
+
+<div id="banner" class="banner hidden"></div>
+<div id="drillBar" class="drill-bar hidden"></div>
+
+<main class="layout">
+  <!-- 蓝方 -->
+  <section class="side side-blue">
+    <div class="side-head">
+      <h2 id="blueName">蓝方</h2>
+      <span id="blueScore" class="score">0</span>
+    </div>
+    <div class="block">
+      <div class="block-title">BAN</div>
+      <div id="blueBans" class="chips bans"></div>
+    </div>
+    <div class="block">
+      <div class="block-title">PICK</div>
+      <div id="bluePicks" class="chips picks"></div>
+    </div>
+    <div class="block">
+      <div class="block-title">分路</div>
+      <div id="blueCover" class="cover"></div>
+    </div>
+  </section>
+
+  <!-- 中间 -->
+  <section class="center">
+    <div class="turnbar">
+      <div id="turnText" class="turn-text">还没有比赛，先选好双方然后「新建比赛」</div>
+      <div id="stepText" class="step-text"></div>
+    </div>
+    <div id="timeline" class="timeline"></div>
+
+    <div class="toolbar">
+      <div class="lane-tabs" id="laneTabs"></div>
+      <input id="search" class="search" placeholder="搜英雄名 / 拼音">
+      <span class="hint">左键出手 · 右键看详情</span>
+    </div>
+
+    <div id="heroGrid" class="hero-grid"></div>
+  </section>
+
+  <!-- 红方 -->
+  <section class="side side-red">
+    <div class="side-head">
+      <h2 id="redName">红方</h2>
+      <span id="redScore" class="score">0</span>
+    </div>
+    <div class="block">
+      <div class="block-title">BAN</div>
+      <div id="redBans" class="chips bans"></div>
+    </div>
+    <div class="block">
+      <div class="block-title">PICK</div>
+      <div id="redPicks" class="chips picks"></div>
+    </div>
+    <div class="block">
+      <div class="block-title">分路</div>
+      <div id="redCover" class="cover"></div>
+    </div>
+  </section>
+</main>
+
+<aside class="suggest-panel">
+  <div class="panel-head">
+    <h3>推荐</h3>
+    <span id="suggestHint" class="hint"></span>
+  </div>
+  <div id="suggestList" class="suggest-list"></div>
+</aside>
+
+<section class="history">
+  <div class="panel-head">
+    <h3>本场小局</h3>
+    <div class="head-actions">
+      <button id="btnSave">保存本局 → 写入 ban 库</button>
+      <span id="winBtns" class="win-btns"></span>
+    </div>
+  </div>
+  <div id="historyList" class="history-list"></div>
+</section>
+
+<section class="real">
+  <div class="panel-head">
+    <h3>对局数据</h3>
+    <div class="tabs">
+      <span class="tab on" data-src="official">官方 KPL</span>
+      <span class="tab" data-src="sim">我的模拟</span>
+    </div>
+  </div>
+  <div class="real-body">
+    <div id="matchList" class="match-list"></div>
+    <div id="matchDetail" class="match-detail"></div>
+  </div>
+</section>
+
+<section class="real">
+  <div class="panel-head">
+    <h3>BAN 榜</h3>
+    <span class="hint">官方接口不给 ban，这张榜由模拟对局累计</span>
+  </div>
+  <div id="banBoard" class="ban-board"></div>
+</section>
+
+<div id="heroModal" class="modal hidden">
+  <div class="modal-card">
+    <button id="modalClose" class="modal-close">×</button>
+    <div id="modalBody"></div>
+  </div>
+</div>
+
+<script src="/app.js"></script>
+</body>
+</html>
